@@ -30,7 +30,7 @@ public class TriangleController implements Initializable {
         tfB.setText(String.valueOf((int) sliderB.getValue()));
         tfC.setText(String.valueOf((int) sliderC.getValue()));
 
-        // Автоматическое вычисление при перемещении слайдера (требование методички)
+        // Автоматическое вычисление при перемещении слайдера
         sliderA.valueProperty().addListener((obs, oldVal, newVal) -> {
             tfA.setText(String.valueOf(newVal.intValue()));
             calculate();
@@ -44,7 +44,7 @@ public class TriangleController implements Initializable {
             calculate();
         });
 
-        calculate(); // расчёт сразу при запуске
+        calculate();
     }
 
     private void calculate() {
