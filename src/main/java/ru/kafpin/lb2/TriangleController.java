@@ -1,5 +1,6 @@
 package ru.kafpin.lb2;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -18,17 +19,18 @@ public class TriangleController implements Initializable {
     @FXML private Label lblResult;
     @FXML private Button btnCheck;
     @FXML private Button btnReset;
+    @FXML private Button btnExit;
 
     private TriangleChecker checker;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Начальные значения в текстовых полях (по умолчанию слайдеры = 1.0)
+        // Начальные значения
         tfA.setText(String.valueOf((int) sliderA.getValue()));
         tfB.setText(String.valueOf((int) sliderB.getValue()));
         tfC.setText(String.valueOf((int) sliderC.getValue()));
 
-        // Автоматическое вычисление при перемещении слайдера
+        // Автоматическое вычисление при перемещении слайдера (требование методички)
         sliderA.valueProperty().addListener((obs, oldVal, newVal) -> {
             tfA.setText(String.valueOf(newVal.intValue()));
             calculate();
@@ -42,8 +44,7 @@ public class TriangleController implements Initializable {
             calculate();
         });
 
-
-        calculate();
+        calculate(); // расчёт сразу при запуске
     }
 
     private void calculate() {
@@ -69,5 +70,10 @@ public class TriangleController implements Initializable {
         sliderB.setValue(1.0);
         sliderC.setValue(1.0);
         lblResult.setText("");
+    }
+
+    @FXML
+    private void onExit(ActionEvent event) {
+        Platform.exit();
     }
 }

@@ -13,14 +13,14 @@
 <VBox spacing="15.0" xmlns="http://javafx.com/javafx/17"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="ru.kafpin.lb2.TriangleController"
-      stylesheets="@../css/style.css">
+      stylesheets="@../../../css/DarkTheme.css">
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
 
     <Label text="Проверка треугольника" styleClass="header">
         <font>
-            <Font size="24.0"/>
+            <Font size="18.0"/>
         </font>
     </Label>
 
@@ -35,7 +35,7 @@
         <TextField fx:id="tfA" GridPane.rowIndex="0" GridPane.columnIndex="1"
                    prefWidth="80"/>
         <Slider fx:id="sliderA" GridPane.rowIndex="0" GridPane.columnIndex="2"
-                prefWidth="200" min="1.0" max="20.0" value="1.0"
+                prefWidth="400" min="1.0" max="20.0" value="1.0"
                 blockIncrement="1.0" showTickLabels="true" showTickMarks="true"
                 majorTickUnit="1.0" minorTickCount="0" snapToTicks="true"/>
 
@@ -45,7 +45,7 @@
         <TextField fx:id="tfB" GridPane.rowIndex="1" GridPane.columnIndex="1"
                    prefWidth="80"/>
         <Slider fx:id="sliderB" GridPane.rowIndex="1" GridPane.columnIndex="2"
-                prefWidth="200" min="1.0" max="20.0" value="1.0"
+                prefWidth="400" min="1.0" max="20.0" value="1.0"
                 blockIncrement="1.0" showTickLabels="true" showTickMarks="true"
                 majorTickUnit="1.0" minorTickCount="0" snapToTicks="true"/>
 
@@ -55,7 +55,7 @@
         <TextField fx:id="tfC" GridPane.rowIndex="2" GridPane.columnIndex="1"
                    prefWidth="80"/>
         <Slider fx:id="sliderC" GridPane.rowIndex="2" GridPane.columnIndex="2"
-                prefWidth="200" min="1.0" max="20.0" value="1.0"
+                prefWidth="400" min="1.0" max="20.0" value="1.0"
                 blockIncrement="1.0" showTickLabels="true" showTickMarks="true"
                 majorTickUnit="1.0" minorTickCount="0" snapToTicks="true"/>
     </GridPane>
@@ -63,6 +63,7 @@
     <HBox spacing="10.0">
         <Button fx:id="btnCheck" text="Проверить" onAction="#onCheck" prefWidth="100"/>
         <Button fx:id="btnReset" text="Сброс" onAction="#onReset" prefWidth="100"/>
+        <Button fx:id="btnExit" text="Выход" onAction="#onExit" prefWidth="100"/>
     </HBox>
 
     <Label fx:id="lblResult" wrapText="true"/>
