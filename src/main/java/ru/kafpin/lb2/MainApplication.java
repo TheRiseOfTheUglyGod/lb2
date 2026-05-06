@@ -12,7 +12,7 @@ public class MainApplication extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("triangle.fxml"));
         Scene scene = new Scene(root, 550, 350);
-        stage.setTitle("Проверка треугольника (FXML)");
+        stage.setTitle("Проверка треугольника");
         stage.setScene(scene);
         stage.setMinWidth(500);
         stage.setMinHeight(300);

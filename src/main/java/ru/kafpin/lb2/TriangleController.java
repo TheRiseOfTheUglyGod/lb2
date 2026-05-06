@@ -1,109 +1,49 @@
 package ru.kafpin.lb2;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
-//4mo
+import javafx.scene.control.*;
+import javafx.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class TriangleController implements Initializable {
 
-    @FXML
-    private TextField tfA;
-    @FXML
-    private TextField tfB;
-    @FXML
-    private TextField tfC;
-
-    @FXML
-    private Slider sliderA;
-    @FXML
-    private Slider sliderB;
-    @FXML
-    private Slider sliderC;
-
-    @FXML
-    private Label lblResult;
-
-    @FXML
-    private Button btnCheck;
-    @FXML
-    private Button btnReset;
-    @FXML
-    private Button btnExit;
+    @FXML private TextField tfA;
+    @FXML private TextField tfB;
+    @FXML private TextField tfC;
+    @FXML private Slider sliderA;
+    @FXML private Slider sliderB;
+    @FXML private Slider sliderC;
+    @FXML private Label lblResult;
+    @FXML private Button btnCheck;
+    @FXML private Button btnReset;
 
     private TriangleChecker checker;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        // Начальные значения в текстовых полях (по умолчанию слайдеры = 1.0)
         tfA.setText(String.valueOf((int) sliderA.getValue()));
         tfB.setText(String.valueOf((int) sliderB.getValue()));
         tfC.setText(String.valueOf((int) sliderC.getValue()));
 
+        // Автоматическое вычисление при перемещении слайдера
         sliderA.valueProperty().addListener((obs, oldVal, newVal) -> {
-            int val = newVal.intValue();
-            tfA.setText(String.valueOf(val));
+            tfA.setText(String.valueOf(newVal.intValue()));
             calculate();
         });
         sliderB.valueProperty().addListener((obs, oldVal, newVal) -> {
-            int val = newVal.intValue();
-            tfB.setText(String.valueOf(val));
+            tfB.setText(String.valueOf(newVal.intValue()));
             calculate();
         });
         sliderC.valueProperty().addListener((obs, oldVal, newVal) -> {
-            int val = newVal.intValue();
-            tfC.setText(String.valueOf(val));
+            tfC.setText(String.valueOf(newVal.intValue()));
             calculate();
         });
 
-        tfA.focusedProperty().addListener((obs, oldVal, newVal) -> {
-            if (!newVal) { // потеря фокуса
-                syncTextFieldToSlider(tfA, sliderA);
-            }
-        });
-        tfB.focusedProperty().addListener((obs, oldVal, newVal) -> {
-            if (!newVal) {
-                syncTextFieldToSlider(tfB, sliderB);
-            }
-        });
-        tfC.focusedProperty().addListener((obs, oldVal, newVal) -> {
-            if (!newVal) {
-                syncTextFieldToSlider(tfC, sliderC);
-            }
-        });
+
         calculate();
-    }
-
-    private void syncTextFieldToSlider(TextField tf, Slider slider) {
-        try {
-            double val = Double.parseDouble(tf.getText().trim());
-            if (val <= 0) {
-                lblResult.setText("Значение должно быть положительным!");
-                return;
-            }
-
-            int intVal = (int) Math.round(val);
-
-            intVal = (int) clamp(intVal, slider.getMin(), slider.getMax());
-            slider.setValue(intVal);
-
-            tf.setText(String.valueOf(intVal));
-            lblResult.setText("");
-        } catch (NumberFormatException e) {
-            lblResult.setText("Ошибка: введите число");
-        }
-    }
-
-    private double clamp(double val, double min, double max) {
-        return Math.max(min, Math.min(max, val));
     }
 
     private void calculate() {
@@ -111,13 +51,8 @@ public class TriangleController implements Initializable {
             double a = Double.parseDouble(tfA.getText());
             double b = Double.parseDouble(tfB.getText());
             double c = Double.parseDouble(tfC.getText());
-
             checker = new TriangleChecker(a, b, c);
-            if (checker.exists()) {
-                lblResult.setText("Треугольник существует");
-            } else {
-                lblResult.setText("Треугольник не существует");
-            }
+            lblResult.setText(checker.exists() ? "Треугольник существует" : "Треугольник не существует");
         } catch (NumberFormatException e) {
             lblResult.setText("Ошибка в числах");
         }
@@ -130,14 +65,9 @@ public class TriangleController implements Initializable {
 
     @FXML
     private void onReset(ActionEvent event) {
-        sliderA.setValue(1);
-        sliderB.setValue(1);
-        sliderC.setValue(1);
+        sliderA.setValue(1.0);
+        sliderB.setValue(1.0);
+        sliderC.setValue(1.0);
         lblResult.setText("");
-    }
-
-    @FXML
-    private void onExit(ActionEvent event) {
-        javafx.application.Platform.exit();
     }
 }
